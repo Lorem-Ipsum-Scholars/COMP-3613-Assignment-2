@@ -35,8 +35,12 @@ def create_student_command():
 @student_cli.command("search", help="Search for a student")
 def search_student_command():
     id = input("Enter the student's ID\n")
-    print("Student information in JSON format: ")
-    print((search_student(id)).to_json())
+    student = search_student(id)
+    if student:
+        print("Student information in JSON format: ")
+        print(student.to_json())
+    else:
+        print("Student does not exist")
 
 @student_cli.command("review", help="Reviews a student. (Maximum of 500 characters)")
 def review_student_command():
@@ -53,8 +57,11 @@ def review_student_command():
 def view_reviews_command():
     id = input("Enter the student's ID\n")
     reviews = view_reviews(id)
-    print("Reviews in JSON format: ")
-    print(reviews)
+    if reviews:
+        print("Reviews in JSON format: ")
+        print(reviews)
+    else:
+        print("Student does not exist.")
 
 app.cli.add_command(student_cli)
 

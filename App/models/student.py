@@ -17,5 +17,3 @@ class Student(db.Model):
             'lastname': self.lastname,
             'reviews': [review.to_json() for review in self.reviews] if self.reviews else []
         }
-    def __repr__(self):
-        return f"id:{self.id} Name:{self.firstname} {self.lastname}"
