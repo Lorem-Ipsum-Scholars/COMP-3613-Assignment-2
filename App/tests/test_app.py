@@ -1,9 +1,11 @@
 import os, tempfile, pytest, logging, unittest
+
+import unittest.test
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from App.main import create_app
 from App.database import db, create_db
-from App.models import User
+from App.models import User, Student, Review
 from App.controllers import (
     create_user,
     get_all_users_json,
@@ -19,6 +21,31 @@ LOGGER = logging.getLogger(__name__)
 '''
    Unit Tests
 '''
+
+class StudentUnitTests(unittest.TestCase):
+    def test_new_student(self):
+        student = Student("bob", "smith")
+        assert student.firstname == "bob" and student.lastname == "smith"
+
+    def test_to_json(self):
+        student = Student("bob", "smith")
+        student_json = student.to_json()
+        self.assertDictEqual(student_json, {"id": None, "firstname": "bob", "lastname": "smith", "reviews": []})
+
+class ReviewUnitTests(unittest.TestCase):
+    def test_new_review(self):
+        review = Review("Test Review", 1)
+        assert review.text == "Test Review" and review.student_id == 1
+    
+    def test_to_json(self):
+        review = Review("Test Review", 1)
+        review_json = review.to_json()
+        self.assertDictEqual(review_json, {
+            'id': None,
+            'text': "Test Review",
+            'student_id': 1,
+        })
+
 class UserUnitTests(unittest.TestCase):
 
     def test_new_user(self):
