@@ -2,8 +2,8 @@ from App.models import Student
 from .review import create_review
 from App.database import db
 
-def create_student(firstname, lastname):
-    student = Student(firstname, lastname)
+def create_student(firstname, lastname, email, public_id):
+    student = Student(firstname, lastname, email, public_id)
     db.session.add(student)
     db.session.commit()
     return student

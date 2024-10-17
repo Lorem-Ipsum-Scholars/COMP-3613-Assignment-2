@@ -28,8 +28,10 @@ student_cli = AppGroup('student', help='Student Object commands')
 def create_student_command():
     firstName  = input("Enter the first name\n")
     lastName = input("Enter the last name\n")
+    email = input("Enter the Email\n")
+    student_id = input("Enter the student's id\n")
     print(firstName)
-    student = create_student(firstName, lastName)
+    student = create_student(firstName, lastName, email, student_id)
     print(f"Student {firstName} {lastName} created with ID {student.id}!")
 
 @student_cli.command("search", help="Search for a student")
@@ -111,7 +113,7 @@ def user_tests_command(type):
     if type == "unit":
         sys.exit(pytest.main(["-k", "UserUnitTests"]))
     elif type == "int":
-        sys.exit(pytest.main(["-k", "UserIntegrationTests"]))
+        sys.exit(pytest.main(["-k", "UsersIntegrationTests"]))
     else:
         sys.exit(pytest.main(["-k", "App"]))
     

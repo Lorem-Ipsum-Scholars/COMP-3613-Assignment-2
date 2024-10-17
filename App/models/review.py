@@ -4,11 +4,12 @@ class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(500), nullable = False)
     student_id = db.Column(db.Integer, db.ForeignKey('student.id'), nullable = False)
-    user_id = db.column(db.Integer, db.ForeignKey('user.id'), nullable = False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
 
-    def __init__(self, text, student_id):
+    def __init__(self, text, student_id, user_id):
         self.text = text
         self.student_id = student_id
+        self.user_id = user_id
 
     
     def to_json(self):
