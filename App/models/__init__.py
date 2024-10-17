@@ -1,3 +1,3 @@
 from .user import *
-from .Review import *
+from .review import *
 from .student import *
