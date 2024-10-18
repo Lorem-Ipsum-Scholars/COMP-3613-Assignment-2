@@ -123,7 +123,7 @@ def student_tests_command(type):
     if type == "unit":
         sys.exit(pytest.main(["-k", "StudentUnitTests"]))
     elif type == "int":
-        sys.exit(pytest.main(["-k", "UserIntegrationTests"]))
+        sys.exit(pytest.main(["-k", "StudentsIntegrationTests"]))
     else:
         sys.exit(pytest.main(["-k", "App"]))
 
@@ -133,7 +133,7 @@ def student_tests_command(type):
     if type == "unit":
         sys.exit(pytest.main(["-k", "ReviewUnitTests"]))
     elif type == "int":
-        sys.exit(pytest.main(["-k", "UserIntegrationTests"]))
+        sys.exit(pytest.main(["-k", "ReviewsIntegrationTests"]))
     else:
         sys.exit(pytest.main(["-k", "App"]))
 

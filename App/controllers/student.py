@@ -12,6 +12,10 @@ def search_student(id):
     student = Student.query.get(id)
     return student
 
+def search_student_by_public_id(id):
+    student = Student.query.filter_by(public_id=id).first()
+    return student
+
 def review_student(id, text):
     student = search_student(id)
     if student:
