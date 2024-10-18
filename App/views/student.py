@@ -10,11 +10,13 @@ def create_student_view():
     data = request.json
     firstname = data.get('firstname')
     lastname = data.get('lastname')
+    email = data.get('email')
+    public_id = data.get('public_id')
     
-    if not firstname or not lastname:
-        return jsonify({"error": "Missing firstname or lastname"}), 400
+    if not firstname or not lastname or not email or not public_id:
+        return jsonify({"error": "Missing firstname , lastname , email or public ID"}), 400
     
-    student = create_student(firstname, lastname)
+    student = create_student(firstname, lastname, email, public_id)
     return jsonify(student.to_json()), 201
 
 

@@ -10,11 +10,12 @@ def create_review_view():
     data = request.json
     text = data.get('text')
     student_id = data.get('student_id')
+    user_id = data.get('user_id')
     
-    if not text or not student_id:
+    if not text or not student_id or not user_id:
         return jsonify({"error": "Missing text or student_id"}), 400
     
-    review = create_review(text, student_id)
+    review = create_review(text, student_id, user_id)
     if review:
         return jsonify(review.to_json()), 201
     return jsonify({"error": "Student not found"}), 404

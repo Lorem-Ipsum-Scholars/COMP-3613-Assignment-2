@@ -5,7 +5,7 @@ from flask.cli import with_appcontext, AppGroup
 from App.database import db, get_migrate
 from App.models import User
 from App.main import create_app
-from App.controllers import ( create_user, get_all_users_json, get_all_users, initialize, create_student, search_student, review_student, view_reviews)
+from App.controllers import ( create_user, get_all_users_json, get_all_users, initialize, create_student, search_student, review_student, view_reviews, search_student_by_public_id)
 
 
 # This commands file allow you to create convenient CLI commands for testing controllers
@@ -25,17 +25,20 @@ def init():
 student_cli = AppGroup('student', help='Student Object commands')
 
 @student_cli.command("create", help="Creates a student")
-def create_student_command():
-    firstName  = input("Enter the first name\n")
-    lastName = input("Enter the last name\n")
-    print(firstName)
-    student = create_student(firstName, lastName)
-    print(f"Student {firstName} {lastName} created with ID {student.id}!")
+@click.argument("firstname")
+@click.argument("lastname")
+@click.argument("email")
+@click.argument("public_id")
+@with_appcontext
+def create_student_command(firstname, lastname, email, public_id):
+    student = create_student(firstname, lastname, email, public_id)
+    print(f"Student {firstname} {lastname} created with ID {student.id}!")
+
 
 @student_cli.command("search", help="Search for a student")
 def search_student_command():
     id = input("Enter the student's ID\n")
-    student = search_student(id)
+    student = search_student_by_public_id(id)
     if student:
         print("Student information in JSON format: ")
         print(student.to_json())
@@ -46,7 +49,8 @@ def search_student_command():
 def review_student_command():
     id = input("Enter the student's ID\n")
     text = input("Enter the review's content\n")
-    review = review_student(id, text)
+    user_id = input("Enter the user's ID\n")
+    review = review_student(text, id , user_id)
     if review:
         print("Review in JSON format: ")
         print(review.to_json())
@@ -83,8 +87,8 @@ user_cli = AppGroup('user', help='User object commands')
 @user_cli.command("create", help="Creates a user")
 @click.argument("username", default="rob")
 @click.argument("password", default="robpass")
-def create_user_command(username, password):
-    create_user(username, password)
+def create_user_command(username, password, email):
+    create_user(username, password, email)
     print(f'{username} created!')
 
 # this command will be : flask user create bob bobpass
@@ -111,9 +115,28 @@ def user_tests_command(type):
     if type == "unit":
         sys.exit(pytest.main(["-k", "UserUnitTests"]))
     elif type == "int":
-        sys.exit(pytest.main(["-k", "UserIntegrationTests"]))
+        sys.exit(pytest.main(["-k", "UsersIntegrationTests"]))
     else:
         sys.exit(pytest.main(["-k", "App"]))
     
+@test.command("student", help="Run Student tests")
+@click.argument("type", default="all")
+def student_tests_command(type):
+    if type == "unit":
+        sys.exit(pytest.main(["-k", "StudentUnitTests"]))
+    elif type == "int":
+        sys.exit(pytest.main(["-k", "StudentsIntegrationTests"]))
+    else:
+        sys.exit(pytest.main(["-k", "App"]))
+
+@test.command("review", help="Run Review tests")
+@click.argument("type", default="all")
+def student_tests_command(type):
+    if type == "unit":
+        sys.exit(pytest.main(["-k", "ReviewUnitTests"]))
+    elif type == "int":
+        sys.exit(pytest.main(["-k", "ReviewsIntegrationTests"]))
+    else:
+        sys.exit(pytest.main(["-k", "App"]))
 
 app.cli.add_command(test)
