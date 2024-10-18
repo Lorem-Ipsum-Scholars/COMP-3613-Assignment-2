@@ -25,14 +25,15 @@ def init():
 student_cli = AppGroup('student', help='Student Object commands')
 
 @student_cli.command("create", help="Creates a student")
-def create_student_command():
-    firstName  = input("Enter the first name\n")
-    lastName = input("Enter the last name\n")
-    email = input("Enter the Email\n")
-    student_id = input("Enter the student's id\n")
-    print(firstName)
-    student = create_student(firstName, lastName, email, student_id)
-    print(f"Student {firstName} {lastName} created with ID {student.id}!")
+@click.argument("firstname")
+@click.argument("lastname")
+@click.argument("email")
+@click.argument("public_id")
+@with_appcontext
+def create_student_command(firstname, lastname, email, public_id):
+    student = create_student(firstname, lastname, email, public_id)
+    print(f"Student {firstname} {lastname} created with ID {student.id}!")
+
 
 @student_cli.command("search", help="Search for a student")
 def search_student_command():
