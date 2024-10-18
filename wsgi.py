@@ -5,7 +5,7 @@ from flask.cli import with_appcontext, AppGroup
 from App.database import db, get_migrate
 from App.models import User
 from App.main import create_app
-from App.controllers import ( create_user, get_all_users_json, get_all_users, initialize, create_student, search_student, review_student, view_reviews)
+from App.controllers import ( create_user, get_all_users_json, get_all_users, initialize, create_student, search_student, review_student, view_reviews, search_student_by_public_id)
 
 
 # This commands file allow you to create convenient CLI commands for testing controllers
@@ -38,7 +38,7 @@ def create_student_command(firstname, lastname, email, public_id):
 @student_cli.command("search", help="Search for a student")
 def search_student_command():
     id = input("Enter the student's ID\n")
-    student = search_student(id)
+    student = search_student_by_public_id(id)
     if student:
         print("Student information in JSON format: ")
         print(student.to_json())
@@ -49,7 +49,8 @@ def search_student_command():
 def review_student_command():
     id = input("Enter the student's ID\n")
     text = input("Enter the review's content\n")
-    review = review_student(id, text)
+    user_id = input("Enter the user's ID\n")
+    review = review_student(text, id , user_id)
     if review:
         print("Review in JSON format: ")
         print(review.to_json())
@@ -86,8 +87,8 @@ user_cli = AppGroup('user', help='User object commands')
 @user_cli.command("create", help="Creates a user")
 @click.argument("username", default="rob")
 @click.argument("password", default="robpass")
-def create_user_command(username, password):
-    create_user(username, password)
+def create_user_command(username, password, email):
+    create_user(username, password, email)
     print(f'{username} created!')
 
 # this command will be : flask user create bob bobpass

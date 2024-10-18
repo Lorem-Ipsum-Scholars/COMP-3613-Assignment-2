@@ -16,10 +16,10 @@ def search_student_by_public_id(id):
     student = Student.query.filter_by(public_id=id).first()
     return student
 
-def review_student(id, text):
+def review_student(id, text, user_id):
     student = search_student(id)
     if student:
-        review = create_review(text, student.id)
+        review = create_review(text, student.id, user_id)
         student.reviews.append(review)
         db.session.add(student)
         db.session.commit()
