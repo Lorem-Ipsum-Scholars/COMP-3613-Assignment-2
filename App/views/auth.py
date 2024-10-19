@@ -53,9 +53,13 @@ API Routes
 @auth_views.route('/api/login', methods=['POST'])
 def user_login_api():
   data = request.json
+  required_fields = ['username', 'password']
+  for field in required_fields:
+    if field not in data:
+        return jsonify({"error": f"Missing field {field}"}), 400
   token = login(data['username'], data['password'])
   if not token:
-    return jsonify(message='bad username or password given'), 401
+    return jsonify(message='invalid credentials'), 400
   response = jsonify(access_token=token) 
   set_access_cookies(response, token)
   return response

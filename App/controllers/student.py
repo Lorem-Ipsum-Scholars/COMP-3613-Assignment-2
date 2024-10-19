@@ -1,12 +1,18 @@
 from App.models import Student
 from .review import create_review
 from App.database import db
+from sqlalchemy.exc import IntegrityError
 
 def create_student(firstname, lastname, email, public_id):
-    student = Student(firstname, lastname, email, public_id)
-    db.session.add(student)
-    db.session.commit()
-    return student
+    try:
+        student = Student(firstname, lastname, email, public_id)
+        db.session.add(student)
+        db.session.commit()
+        return student
+    except IntegrityError as e:
+        db.session.rollback()
+        return None
+    
 
 def search_student(id):
     student = Student.query.get(id)
