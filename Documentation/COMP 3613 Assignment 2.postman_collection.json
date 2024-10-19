@@ -1,0 +1,1694 @@
+{
+	"info": {
+		"_postman_id": "7803f4cd-3c7c-4d7d-9111-2d2bc15e2278",
+		"name": "COMP 3613 Assignment 2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38727625",
+		"_collection_link": "https://lorem-ipsum-4110.postman.co/workspace/5c3af096-7d32-4b7b-8895-a204721ffcf8/collection/33097466-7803f4cd-3c7c-4d7d-9111-2d2bc15e2278?action=share&source=collection_link&creator=38727625"
+	},
+	"item": [
+		{
+			"name": "Sign Up",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response message is correct\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(`user ${pm.environment.get(\"username\")} created with id 1`);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"followOriginalHttpMethod": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"{{username}}\",\r\n  \"password\": \"bobpass\",\r\n  \"confirm_password\": \"bobpass\",\r\n  \"email\": \"bob.smith@mail.com\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}api/users",
+					"host": [
+						"{{host}}api"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Sign Up",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"{{username}}\",\r\n  \"password\": \"bobpass\",\r\n  \"confirm_password\": \"bobpass\",\r\n  \"email\": \"bob.smith@mail.com\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}api/users",
+							"host": [
+								"{{host}}api"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.2.3 Python/3.12.7"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 19 Oct 2024 01:15:56 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "46"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"user bob created with id 1\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Sign Up Missing Fields",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response error message is correct\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.error).to.eql(\"Missing field email\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"followOriginalHttpMethod": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"bob\",\r\n  \"password\": \"bobpass\",\r\n  \"confirm_password\": \"bobpass\",\r\n  \"emaill\": \"bob.smith@mail.com\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}api/users",
+					"host": [
+						"{{host}}api"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Sign Up Missing Fields",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"bob\",\r\n  \"password\": \"bobpass\",\r\n  \"confirm_password\": \"bobpass\",\r\n  \"emaill\": \"bob.smith@mail.com\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}api/users",
+							"host": [
+								"{{host}}api"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"status": "BAD REQUEST",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.2.3 Python/3.12.7"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 19 Oct 2024 01:16:14 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "37"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"Missing field email\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Sign Up Taken Username/Email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 409\", function () {\r",
+							"    pm.response.to.have.status(400); // Assuming a conflict status code\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response message is correct\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"Username/Email already taken\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"followOriginalHttpMethod": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"bob\",\r\n  \"password\": \"bobpass\",\r\n  \"confirm_password\": \"bobpass\",\r\n  \"email\": \"bob.smith@mail.com\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}api/users",
+					"host": [
+						"{{host}}api"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Sign Up Taken Username/Email",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"bob\",\r\n  \"password\": \"bobpass\",\r\n  \"confirm_password\": \"bobpass\",\r\n  \"email\": \"bob.smith@mail.com\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}api/users",
+							"host": [
+								"{{host}}api"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"status": "BAD REQUEST",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.2.3 Python/3.12.7"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 19 Oct 2024 01:16:21 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "48"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Username/Email already taken\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains access_token\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"access_token\");\r",
+							"    pm.expect(jsonData.access_token).to.be.a('string').that.is.not.empty;\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\": \"bob\",\r\n\"password\": \"bobpass\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}api/login",
+					"host": [
+						"{{host}}api"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": \"bob\",\r\n\"password\": \"bobpass\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}api/login",
+							"host": [
+								"{{host}}api"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.2.3 Python/3.12.7"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 19 Oct 2024 01:16:31 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "286"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcyOTMwMDU5MSwianRpIjoiNmIxMTFjMWEtMWE0OC00YWQ4LTg3OWYtODRmODA0NmE4MjM1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNzI5MzAwNTkxLCJleHAiOjE3MjkzMDE0OTF9.hKuvy8TwzDNcfMuB3CjIMrTfBoFNTAAkb-gJTbeDfG8; Secure; HttpOnly; Path=/"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"access_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcyOTMwMDU5MSwianRpIjoiNmIxMTFjMWEtMWE0OC00YWQ4LTg3OWYtODRmODA0NmE4MjM1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNzI5MzAwNTkxLCJleHAiOjE3MjkzMDE0OTF9.hKuvy8TwzDNcfMuB3CjIMrTfBoFNTAAkb-gJTbeDfG8\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Create Student",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains expected user data\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(jsonData).to.have.property(\"email\", \"jane.smith@mail.com\");\r",
+							"    pm.expect(jsonData).to.have.property(\"firstname\", \"jane\");\r",
+							"    pm.expect(jsonData).to.have.property(\"lastname\", \"smith\");\r",
+							"    pm.expect(jsonData).to.have.property(\"id\", 1);\r",
+							"    pm.expect(jsonData).to.have.property(\"public_id\", 816012345);\r",
+							"    pm.expect(jsonData).to.have.property(\"reviews\").that.is.an('array').that.is.empty; // Ensures reviews is an empty array\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const loginUrl = `${pm.environment.get(\"host\")}/login`;\r",
+							"\r",
+							"const loginData = {\r",
+							"    username: \"bob\",\r",
+							"    password: \"bobpass\"\r",
+							"};\r",
+							"\r",
+							"function login() {\r",
+							"    pm.sendRequest({\r",
+							"        url: loginUrl,\r",
+							"        method: 'POST',\r",
+							"        header: {\r",
+							"            'Content-Type': 'application/json'\r",
+							"        },\r",
+							"        body: {\r",
+							"            mode: 'raw',\r",
+							"            raw: JSON.stringify(loginData)\r",
+							"        }\r",
+							"    }, function (err, res) {\r",
+							"        if (err) {\r",
+							"            console.error('Login failed:', err);\r",
+							"        } else {\r",
+							"            console.log('Login response:', res.json());\r",
+							"            if (res.code === 200) {\r",
+							"                pm.environment.set(\"access_token\", res.json().access_token);\r",
+							"            }\r",
+							"        }\r",
+							"    });\r",
+							"}\r",
+							"\r",
+							"login();\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"public_id\": 816012345,\r\n    \"firstname\": \"jane\",\r\n    \"lastname\": \"smith\",\r\n    \"email\": \"jane.smith@mail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}students",
+					"host": [
+						"{{host}}students"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"public_id\": 816012345,\r\n    \"firstname\": \"jane\",\r\n    \"lastname\": \"smith\",\r\n    \"email\": \"jane.smith@mail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}students",
+							"host": [
+								"{{host}}students"
+							]
+						}
+					},
+					"status": "CREATED",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.2.3 Python/3.12.7"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 19 Oct 2024 01:16:48 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "137"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"email\": \"jane.smith@mail.com\",\n    \"firstname\": \"jane\",\n    \"id\": 1,\n    \"lastname\": \"smith\",\n    \"public_id\": 816012345,\n    \"reviews\": []\n}"
+				}
+			]
+		},
+		{
+			"name": "Search Student By ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains expected user data\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(jsonData).to.have.property(\"email\", \"jane.smith@mail.com\");\r",
+							"    pm.expect(jsonData).to.have.property(\"firstname\", \"jane\");\r",
+							"    pm.expect(jsonData).to.have.property(\"lastname\", \"smith\");\r",
+							"    pm.expect(jsonData).to.have.property(\"id\", 1);\r",
+							"    pm.expect(jsonData).to.have.property(\"public_id\", 816012345);\r",
+							"    pm.expect(jsonData).to.have.property(\"reviews\").that.is.an('array').that.is.empty; // Ensures reviews is an empty array\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}students/{{Public ID}}",
+					"host": [
+						"{{host}}students"
+					],
+					"path": [
+						"{{Public ID}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}students/{{Public ID}}",
+							"host": [
+								"{{host}}students"
+							],
+							"path": [
+								"{{Public ID}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.2.3 Python/3.12.7"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 19 Oct 2024 01:17:06 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "137"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"email\": \"jane.smith@mail.com\",\n    \"firstname\": \"jane\",\n    \"id\": 1,\n    \"lastname\": \"smith\",\n    \"public_id\": 816012345,\n    \"reviews\": []\n}"
+				}
+			]
+		},
+		{
+			"name": "Create Review Missing Fields",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response error message is correct\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.error).to.eql(\"Missing text or student_id or user_id\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"text\": \"Sample Text\",\r\n    \"student_id\": \"816012345\",\r\n    \"user_idd\": \"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}reviews",
+					"host": [
+						"{{host}}reviews"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create Review Copy",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"Sample Text\",\r\n    \"student_id\": \"816012345\",\r\n    \"user_idd\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}reviews",
+							"host": [
+								"{{host}}reviews"
+							]
+						}
+					},
+					"status": "BAD REQUEST",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.2.3 Python/3.12.7"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 19 Oct 2024 01:17:19 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "55"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"Missing text or student_id or user_id\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Create Review",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains expected data\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(jsonData).to.have.property(\"id\", 1);\r",
+							"    pm.expect(jsonData).to.have.property(\"student_id\", 1);\r",
+							"    pm.expect(jsonData).to.have.property(\"text\", \"Sample Text\");\r",
+							"    pm.expect(jsonData).to.have.property(\"user_id\", 1);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const loginUrl = `${pm.environment.get(\"host\")}/login`;\r",
+							"\r",
+							"const loginData = {\r",
+							"    username: \"bob\",\r",
+							"    password: \"bobpass\"\r",
+							"};\r",
+							"\r",
+							"function login() {\r",
+							"    pm.sendRequest({\r",
+							"        url: loginUrl,\r",
+							"        method: 'POST',\r",
+							"        header: {\r",
+							"            'Content-Type': 'application/json'\r",
+							"        },\r",
+							"        body: {\r",
+							"            mode: 'raw',\r",
+							"            raw: JSON.stringify(loginData)\r",
+							"        }\r",
+							"    }, function (err, res) {\r",
+							"        if (err) {\r",
+							"            console.error('Login failed:', err);\r",
+							"        } else {\r",
+							"            console.log('Login response:', res.json());\r",
+							"            if (res.code === 200) {\r",
+							"                pm.environment.set(\"access_token\", res.json().access_token);\r",
+							"            }\r",
+							"        }\r",
+							"    });\r",
+							"}\r",
+							"\r",
+							"login();\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"text\": \"Sample Text\",\r\n    \"student_id\": \"816012345\",\r\n    \"user_id\": \"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}reviews",
+					"host": [
+						"{{host}}reviews"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"Sample Text\",\r\n    \"student_id\": \"816012345\",\r\n    \"user_id\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}reviews",
+							"host": [
+								"{{host}}reviews"
+							]
+						}
+					},
+					"status": "CREATED",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.2.3 Python/3.12.7"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 19 Oct 2024 01:17:28 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "74"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 1,\n    \"student_id\": 1,\n    \"text\": \"Sample Text\",\n    \"user_id\": 1\n}"
+				}
+			]
+		},
+		{
+			"name": "Login Invalid Credentials",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response message is correct\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"invalid credentials\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\": \"bob\",\r\n\"password\": \"janepass\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}api/login",
+					"host": [
+						"{{host}}api"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Login Copy",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": \"bob\",\r\n\"password\": \"janepass\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}api/login",
+							"host": [
+								"{{host}}api"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"status": "BAD REQUEST",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.2.3 Python/3.12.7"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 19 Oct 2024 01:17:37 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "39"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"invalid credentials\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Login Missing Fields",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response error message is correct\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.error).to.satisfy(function(message) {\r",
+							"        return message === \"Missing field password\" || message === \"Missing field username\";\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"password\": \"bob\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}api/login",
+					"host": [
+						"{{host}}api"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request Copy",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"password\": \"bob\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}api/login",
+							"host": [
+								"{{host}}api"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"status": "BAD REQUEST",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.2.3 Python/3.12.7"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 19 Oct 2024 01:17:51 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "40"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"Missing field username\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Create Student Missing Fields",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response error message is correct\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.error).to.eql(\"Missing firstname , lastname , email or public ID\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"public_id\": 816012345,\r\n    \"firstname\": \"jane\",\r\n    \"lastname\": \"smith\",\r\n    \"emaill\": \"jane.smith@mail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}students",
+					"host": [
+						"{{host}}students"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create Student Copy",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"public_id\": 816012345,\r\n    \"firstname\": \"jane\",\r\n    \"lastname\": \"smith\",\r\n    \"emaill\": \"jane.smith@mail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}students",
+							"host": [
+								"{{host}}students"
+							]
+						}
+					},
+					"status": "BAD REQUEST",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.2.3 Python/3.12.7"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 19 Oct 2024 01:18:01 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "67"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"Missing firstname , lastname , email or public ID\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Create Student Duplicate Email/ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response error message is correct\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.error).to.eql(\"Email/Id already taken\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"public_id\": 816012345,\r\n    \"firstname\": \"jane\",\r\n    \"lastname\": \"smith\",\r\n    \"email\": \"jane.smith@mail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}students",
+					"host": [
+						"{{host}}students"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create Student Copy",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"public_id\": 816012345,\r\n    \"firstname\": \"jane\",\r\n    \"lastname\": \"smith\",\r\n    \"email\": \"jane.smith@mail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}students",
+							"host": [
+								"{{host}}students"
+							]
+						}
+					},
+					"status": "BAD REQUEST",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.2.3 Python/3.12.7"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 19 Oct 2024 01:18:10 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "40"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"Email/Id already taken\"\n}"
+				}
+			]
+		},
+		{
+			"name": "View Student Reviews",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response is an array\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.be.an('array').that.is.not.empty; // Ensure it's an array and not empty\r",
+							"});\r",
+							"\r",
+							"pm.test(\"First item contains expected data\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(jsonData[0]).to.have.property(\"id\", 1);\r",
+							"    pm.expect(jsonData[0]).to.have.property(\"student_id\", 1);\r",
+							"    pm.expect(jsonData[0]).to.have.property(\"text\", \"Sample Text\");\r",
+							"    pm.expect(jsonData[0]).to.have.property(\"user_id\", 1);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}students/1/reviews",
+					"host": [
+						"{{host}}students"
+					],
+					"path": [
+						"1",
+						"reviews"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}students/1/reviews",
+							"host": [
+								"{{host}}students"
+							],
+							"path": [
+								"1",
+								"reviews"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.2.3 Python/3.12.7"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 19 Oct 2024 01:18:20 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "90"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 1,\n        \"student_id\": 1,\n        \"text\": \"Sample Text\",\n        \"user_id\": 1\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "View Student Reviews Student Does Not Exist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response error message is correct\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.error).to.eql(\"No reviews found\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}students/2/reviews",
+					"host": [
+						"{{host}}students"
+					],
+					"path": [
+						"2",
+						"reviews"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "View Student Reviews Copy",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}students/2/reviews",
+							"host": [
+								"{{host}}students"
+							],
+							"path": [
+								"2",
+								"reviews"
+							]
+						}
+					},
+					"status": "NOT FOUND",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.2.3 Python/3.12.7"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 19 Oct 2024 01:18:56 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "34"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"No reviews found\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Search Student By ID when Not Logged In",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const logoutUrl = `${pm.environment.get(\"host\")}/logout`;\r",
+							"\r",
+							"function logout() {\r",
+							"    pm.sendRequest({\r",
+							"        url: logoutUrl,\r",
+							"        method: 'GET',\r",
+							"        header: {\r",
+							"            'Authorization': `Bearer ${pm.environment.get(\"access_token\")}`\r",
+							"        }\r",
+							"    }, function (err, res) {\r",
+							"        if (err) {\r",
+							"            console.error('Logout failed:', err);\r",
+							"        } else {\r",
+							"            console.log('Logout response:', res.json());\r",
+							"            pm.environment.unset(\"access_token\");\r",
+							"        }\r",
+							"    });\r",
+							"}\r",
+							"\r",
+							"logout();\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response error message is correct\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.error).to.eql(\"authentication required\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}students/{{Public ID}}",
+					"host": [
+						"{{host}}students"
+					],
+					"path": [
+						"{{Public ID}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Search Student By ID when Not Logged In",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}students/{{Public ID}}",
+							"host": [
+								"{{host}}students"
+							],
+							"path": [
+								"{{Public ID}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.2.3 Python/3.12.7"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 19 Oct 2024 01:19:42 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "41"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"authentication required\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Logout",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response message is correct\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"Logged Out!\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}api/logout",
+					"host": [
+						"{{host}}api"
+					],
+					"path": [
+						"logout"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}api/logout",
+							"host": [
+								"{{host}}api"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.2.3 Python/3.12.7"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 19 Oct 2024 01:19:58 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "31"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "access_token=; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Secure; HttpOnly; Path=/"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "refresh_token_cookie=; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Secure; HttpOnly; Path=/"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Logged Out!\"\n}"
+				}
+			]
+		}
+	]
+}
