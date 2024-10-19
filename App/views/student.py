@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from App.controllers.student import (create_student, search_student, review_student, view_reviews)
+from App.controllers.student import (create_student, search_student, search_student_by_public_id, review_student, view_reviews)
 from flask_jwt_extended import jwt_required
 
 student_views = Blueprint('student_views', __name__)
@@ -17,14 +17,16 @@ def create_student_view():
         return jsonify({"error": "Missing firstname , lastname , email or public ID"}), 400
     
     student = create_student(firstname, lastname, email, public_id)
-    return jsonify(student.to_json()), 201
+    if student:
+        return jsonify(student.to_json()), 201
+    return jsonify({"error": "Email/Id already taken"}), 400
 
 
 @student_views.route('/students/<int:id>', methods=['GET'])
 @jwt_required()
 def search_student_view(id):
-    student = search_student(id)
-    if student:
+    student = search_student_by_public_id(id)
+    if student: 
         return jsonify(student.to_json()), 200
     return jsonify({"error": "Student not found"}), 404
 

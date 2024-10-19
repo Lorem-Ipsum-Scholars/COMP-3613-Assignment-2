@@ -120,7 +120,12 @@ class StudentsIntegrationTests(unittest.TestCase):
         student = create_student("jane", "smith", "jane.smith@mail.com", 816012345)
         student_test = search_student_by_public_id(816012345)
         assert student == student_test
-        
+
+    def test_search_by_public_id_no_results(self):
+        student = create_student("jane", "smith", "jane.smith@mail.com", 816012345)
+        student_test = search_student_by_public_id(8160123445)
+        assert None == student_test 
+
 class UsersIntegrationTests(unittest.TestCase):
 
     def test_create_user(self):

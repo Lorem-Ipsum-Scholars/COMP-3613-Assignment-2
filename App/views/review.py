@@ -13,7 +13,7 @@ def create_review_view():
     user_id = data.get('user_id')
     
     if not text or not student_id or not user_id:
-        return jsonify({"error": "Missing text or student_id"}), 400
+        return jsonify({"error": "Missing text or student_id or user_id"}), 400
     
     review = create_review(text, student_id, user_id)
     if review:
