@@ -7,4 +7,4 @@ from App.database import db
 def initialize():
     db.drop_all()
     db.create_all()
-    #bob = create_user('bob', 'bobpass','boo@gmail.com')
+    bob = create_user('bob', 'bobpass', 'bob@mail.com')
